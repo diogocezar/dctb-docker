@@ -82,6 +82,7 @@ RUN
   php5.6-intl \
   php5.6-mcrypt \
   php5.6-mysql \
+  libapache2-mod-php5.6 \
   && php5enmod mcrypt \
   && apt-get clean
 # INSTALL COMPOSER
@@ -94,6 +95,8 @@ RUN
   apt-get install -y \
   phpmyadmin \
 # PORT CONFIGURE
-EXPOSE 80
+EXPOSE 8080
+# VOLUME
+VOLUME ["/var/www/html"]
 CMD ["apache2ctl", "-D", "FOREGROUND"]
 ```
