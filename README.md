@@ -52,3 +52,51 @@ $ docker run -ti --name container-teste-3 ubuntu:16.04 /bin/bash
 $ docker run -d --name container-teste-4 ubuntu 16.04 /bin/bash -c "while true; do echo hello world; sleep 1; done"
 ```
 
+# Rascunho Dockerfile
+
+```
+FROM ubuntu:16.04
+MAINTAINER Diogo Cezar <diogo@diogocezar.com>
+# Update Upgrade
+RUN
+  apt-get update && \
+  apt-get -y upgrade
+# Apache
+RUN
+  apt-get install -y \
+	apache2
+# Php 5.6
+RUN
+  apt-get install -y \
+  php5.6 \
+  php5.6-curl \
+  php5.6-intl \
+  php5.6-mcrypt \
+  php5.6-mysql \
+	&& php5enmod mcrypt \
+  && apt-get clean \
+  && curl -sS https://getcomposer.org/installer | php \
+  && mv composer.phar /usr/local/bin/composer \
+  && chmod a+x /usr/local/bin/composer \
+  && curl -o /usr/local/bin/whenavail https://bitbucket.org/silintl/docker-whenavail/raw/master/whenavail \
+  && chmod a+x /usr/local/bin/whenavail
+# Git
+RUN
+  apt-get install -y \
+  git
+# Curl
+RUN
+  apt-get install -y \
+  curl
+# Composer
+RUN
+  curl -sS https://getcomposer.org/installer | php \
+  && mv composer.phar /usr/local/bin/composer \
+  && chmod a+x /usr/local/bin/composer \
+# PhpMyAdmin
+RUN
+  apt-get install -y \
+  phpmyadmin \
+EXPOSE 80
+CMD ["apache2ctl", "-D", "FOREGROUND"]
+```
