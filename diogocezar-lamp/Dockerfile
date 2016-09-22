@@ -68,11 +68,19 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 RUN rm -Rf /var/www/html
 RUN mkdir -p /var/lock/apache2 /var/run/apache2
+
 RUN echo "ServerName 127.0.0.1" >> /etc/apache2/apache2.conf
+
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
-RUN a2ensite 000-default.conf && a2enmod rewrite
-RUN a2enmod php5
-RUN service apache2 restart
+
+RUN a2ensite 000-default.conf && a2enmod rewrite && a2enmod php5
+
+env APACHE_RUN_USER    www-data
+env APACHE_RUN_GROUP   www-data
+env APACHE_PID_FILE    /var/run/apache2.pid
+env APACHE_RUN_DIR     /var/run/apache2
+env APACHE_LOCK_DIR    /var/lock/apache2
+env APACHE_LOG_DIR     /var/log/apache2
 
 ########
 # PORT #
@@ -87,4 +95,4 @@ VOLUME ["/var/www"]
 ########
 # EXEC #
 ########
-CMD ["service apache2 start", "-D", "FOREGROUND"]
+CMD ["apache2", "-D", "FOREGROUND"]

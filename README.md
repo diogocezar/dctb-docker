@@ -40,7 +40,11 @@ docker build -t=diogocezar/lamp .
 # Subindo uma imagem
 
 ```
-docker run -it -p 8080:80 -v ~/docker-dctb/www:/var/www diogocezar/lamp /bin/bash
+docker run -itd -p 8080:80 -v ~/dctb-docker/diogocezar-lamp/www:/var/www diogocezar/lamp
+```
+
+```
+docker run -itd -p 8080:80 -v ~/dctb-docker/diogocezar-lamp/www:/var/www -v /var/lib/mysql:/var/lib/mysql diogocezar/lamp
 ```
 
 # Limpando Containers e Imagens
@@ -53,7 +57,17 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 ```
 
+# Matando Containers
 
+```
+docker kill $(docker ps -q)
+```
+
+# Entrando no Bash
+
+```
+sudo docker exec -i -t loving_heisenberg /bin/bash
+```
 
 # Links Úteis
 
