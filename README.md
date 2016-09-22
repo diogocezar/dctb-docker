@@ -95,7 +95,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
 # RESTART APACHE
 RUN service apache2 restart
 # PORT CONFIGURE
-EXPOSE 80
+EXPOSE 8080
 # VOLUME
 VOLUME ["/var/www/html"]
 CMD ["apache2ctl", "-D", "FOREGROUND"]
