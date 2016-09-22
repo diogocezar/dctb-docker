@@ -43,6 +43,18 @@ docker build -t=diogocezar/lamp .
 docker run -it -p 8080:80 -v ~/docker-dctb/www:/var/www diogocezar/lamp /bin/bash
 ```
 
+# Limpando Containers e Imagens
+
+```
+#!/bin/bash
+# Delete all containers
+docker rm $(docker ps -a -q)
+# Delete all images
+docker rmi $(docker images -q)
+```
+
+
+
 # Links Úteis
 
 * https://www.youtube.com/watch?v=hCMcQfGb4cA
