@@ -1,35 +1,10 @@
-# Docker Hacks
-
-# Links Úteis
-
-https://www.youtube.com/watch?v=hCMcQfGb4cA
-
-https://docs.docker.com/compose/install/
-
-https://docs.docker.com/compose/completion/docker
-
-http://www.mundodocker.com.br/docker-compose/
-
-https://hub.docker.com/r/silintl/php-web/~/dockerfile/
-
-https://hub.docker.com/r/kaushalkishore/docker-lamp/~/dockerfile/
-
-https://www.vivaolinux.com.br/artigo/Criando-imagens-Docker-com-Dockerfile
-
-https://medium.com/dev-tricks/apache-and-php-on-docker-44faef716150#.6pncvx7ip
+# Estudos do Docker
 
 # Instalação
 
 ```
 $ wget -qO- https://get.docker.com/ | sh
 $ sudo usermod -aG docker <usuario>
-```
-
-## Instalação docker compose
-
-```
-curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
 ```
 
 # Subir um container
@@ -65,5 +40,23 @@ docker build -t=diogocezar/lamp .
 # Subindo uma imagem
 
 ```
-docker run -it -p 8080:8080 diogocezar/lamp /bin/bash
+docker run -it -p 8080:80 -v ~/docker-dctb/www:/var/www diogocezar/lamp /bin/bash
 ```
+
+# Links Úteis
+
+* https://www.youtube.com/watch?v=hCMcQfGb4cA
+
+* https://docs.docker.com/compose/install/
+
+* https://docs.docker.com/compose/completion/docker
+
+* http://www.mundodocker.com.br/docker-compose/
+
+* https://hub.docker.com/r/silintl/php-web/~/dockerfile/
+
+* https://hub.docker.com/r/kaushalkishore/docker-lamp/~/dockerfile/
+
+* https://www.vivaolinux.com.br/artigo/Criando-imagens-Docker-com-Dockerfile
+
+* https://medium.com/dev-tricks/apache-and-php-on-docker-44faef716150#.6pncvx7ip
