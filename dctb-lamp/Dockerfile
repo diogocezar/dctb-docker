@@ -14,7 +14,6 @@ RUN apt-get install -y curl
 RUN apt-get -y install software-properties-common
 RUN add-apt-repository ppa:ondrej/php && apt-get update
 RUN apt-get install -y --allow-unauthenticated \
-    php7.0 \
     php5.6 \
     php-gettext \
     php5.6-mbstring \
