@@ -57,15 +57,24 @@ $ docker run -d --name container-teste-4 ubuntu 16.04 /bin/bash -c "while true; 
 ```
 FROM ubuntu:16.04
 MAINTAINER Diogo Cezar <diogo@diogocezar.com>
-# Update Upgrade
+# UPDATE AND UPGRADE
 RUN
   apt-get update && \
   apt-get -y upgrade
-# Apache
+# INSTALL APACHE
 RUN
   apt-get install -y \
-	apache2
-# Php 5.6
+  apache2 \
+  && sudo a2enmod rewrite
+# INSTALL GIT
+RUN
+  apt-get install -y \
+  git
+# INSTALL CURL
+RUN
+  apt-get install -y \
+  curl
+# INSTALL PHP 5.6
 RUN
   apt-get install -y \
   php5.6 \
@@ -73,30 +82,18 @@ RUN
   php5.6-intl \
   php5.6-mcrypt \
   php5.6-mysql \
-	&& php5enmod mcrypt \
-  && apt-get clean \
-  && curl -sS https://getcomposer.org/installer | php \
-  && mv composer.phar /usr/local/bin/composer \
-  && chmod a+x /usr/local/bin/composer \
-  && curl -o /usr/local/bin/whenavail https://bitbucket.org/silintl/docker-whenavail/raw/master/whenavail \
-  && chmod a+x /usr/local/bin/whenavail
-# Git
-RUN
-  apt-get install -y \
-  git
-# Curl
-RUN
-  apt-get install -y \
-  curl
-# Composer
+  && php5enmod mcrypt \
+  && apt-get clean
+# INSTALL COMPOSER
 RUN
   curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
   && chmod a+x /usr/local/bin/composer \
-# PhpMyAdmin
+# INSTALL PHPMYADMIN
 RUN
   apt-get install -y \
   phpmyadmin \
+# PORT CONFIGURE
 EXPOSE 80
 CMD ["apache2ctl", "-D", "FOREGROUND"]
 ```
