@@ -14,12 +14,10 @@ RUN apt-get update && apt-get -y upgrade
 ###########
 
 # APACHE #
-
 RUN apt-get install -y \
     apache2
 
 # GIT #
-
 RUN apt-get install -y git
 
 # CURL #
