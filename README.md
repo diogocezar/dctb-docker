@@ -3,9 +3,14 @@
 Material baseado em: 
 
 https://www.youtube.com/watch?v=hCMcQfGb4cA
+
 https://docs.docker.com/compose/install/
+
 https://docs.docker.com/compose/completion/docker
+
 http://www.mundodocker.com.br/docker-compose/
+
+https://hub.docker.com/r/silintl/php-web/~/dockerfile/
 
 # Instalação
 
