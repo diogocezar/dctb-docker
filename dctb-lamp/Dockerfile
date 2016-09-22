@@ -20,6 +20,21 @@ RUN apt-get install -y \
 # GIT #
 RUN apt-get install -y git
 
+# SSH #
+RUN apt-get install -y openssh-server
+
+# NANO #
+RUN apt-get install -y nano
+
+# UNZIP #
+RUN apt-get install -y unzip
+
+# BASH-COMPLETION #
+RUN apt-get install -y bash-completion
+
+# SUPERVISOR #
+# RUN apt-get install -y supervisor
+
 # CURL #
 RUN apt-get install -y curl
 
@@ -51,6 +66,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
 # CONFIGURATIONS #
 ##################
 
+RUN rm -Rf /var/www/html
 RUN mkdir -p /var/lock/apache2 /var/run/apache2
 RUN echo "ServerName 127.0.0.1" >> /etc/apache2/apache2.conf
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
@@ -66,9 +82,9 @@ EXPOSE 80
 ##########
 # VOLUME #
 ##########
-VOLUME ["/var/www/html"]
+VOLUME ["/var/www"]
 
 ########
 # EXEC #
 ########
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+CMD ["service apache2 start", "-D", "FOREGROUND"]
