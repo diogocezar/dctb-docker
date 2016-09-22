@@ -1,46 +1,76 @@
-FROM ubuntu:16.04
+FROM ubuntu:14.04
+
 MAINTAINER Diogo Cezar <diogo@diogocezar.com>
-# UPDATE AND UPGRADE
+
+######################
+# UPDATE AND UPGRADE #
+######################
+
 RUN apt-get clean all
 RUN apt-get update && apt-get -y upgrade
-# INSTALL APACHE
+
+###########
+# INSTALL #
+###########
+
+# APACHE #
+
 RUN apt-get install -y \
     apache2
-# INSTALL GIT
+
+# GIT #
+
 RUN apt-get install -y git
-# INSTALL CURL
+
+# CURL #
 RUN apt-get install -y curl
-# INSTALL PHP 5.6
+
+# COMMON #
 RUN apt-get -y install software-properties-common
-RUN add-apt-repository ppa:ondrej/php && apt-get update
+
+# PHP 5 #
+RUN add-apt-repository ppa:ondrej/php5-5.6 -y && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C && apt-get update
 RUN apt-get install -y --allow-unauthenticated \
-    php5.6 \
+    php5 \
     php-gettext \
-    php5.6-mbstring \
-    php-xdebug \
-    php5.6-curl \
-    php5.6-gd \
-    php5.6-xml \
-    php5.6-zip \
-    php5.6-intl \
-    php5.6-mcrypt \
-    php5.6-mysql \
-    libapache2-mod-php5.6 \
+    php5-curl \
+    php5-gd \
+    php5-dev \
+    php5-xmlrpc \
+    php5-intl \
+    php5-mcrypt \
+    php5-mysql \
+    php5-cli \
+    libapache2-mod-php5 \
     && apt-get clean
-# ENABLE APACHE MODS
-RUN a2enmod php5.6
-RUN a2enmod rewrite
-# CHANGE TO PHP 5.6
-RUN a2dismod php7.0 && a2enmod php5.6 && service apache2 restart
-RUN ln -sfn /usr/bin/php5.6 /etc/alternatives/php
-# INSTALL COMPOSER
+
+# COMPOSER #
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && chmod a+x /usr/local/bin/composer
-# RESTART APACHE
+
+##################
+# CONFIGURATIONS #
+##################
+
+RUN mkdir -p /var/lock/apache2 /var/run/apache2
+RUN echo "ServerName 127.0.0.1" >> /etc/apache2/apache2.conf
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+RUN a2ensite 000-default.conf && a2enmod rewrite
+RUN a2enmod php5
 RUN service apache2 restart
-# PORT CONFIGURE
-EXPOSE 8080
-# VOLUME
+
+########
+# PORT #
+########
+EXPOSE 80
+
+##########
+# VOLUME #
+##########
 VOLUME ["/var/www/html"]
+
+########
+# EXEC #
+########
 CMD ["apache2ctl", "-D", "FOREGROUND"]
