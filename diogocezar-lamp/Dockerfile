@@ -32,9 +32,6 @@ RUN apt-get install -y unzip
 # BASH-COMPLETION #
 RUN apt-get install -y bash-completion
 
-# SUPERVISOR #
-# RUN apt-get install -y supervisor
-
 # CURL #
 RUN apt-get install -y curl
 
@@ -72,6 +69,7 @@ RUN mkdir -p /var/lock/apache2 /var/run/apache2
 RUN echo "ServerName 127.0.0.1" >> /etc/apache2/apache2.conf
 
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY php.ini /etc/php5/apache2/php.ini
 
 RUN a2ensite 000-default.conf && a2enmod rewrite && a2enmod php5
 
