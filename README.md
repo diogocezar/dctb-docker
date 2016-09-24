@@ -79,7 +79,7 @@ docker kill $(docker ps -q) && docker rm $(docker ps -a -q)
 # Entrando no Bash
 
 ```
-sudo docker exec -i -t diogocezarlamp_lamp_1 /bin/bash
+sudo docker exec -i -t dctb-lamp /bin/bash
 ```
 
 # Executando Docker Compose
@@ -105,3 +105,5 @@ docker-compose up -d
 * https://www.vivaolinux.com.br/artigo/Criando-imagens-Docker-com-Dockerfile
 
 * https://medium.com/dev-tricks/apache-and-php-on-docker-44faef716150#.6pncvx7ip
+
+* https://docs.docker.com/engine/examples/running_ssh_service/
